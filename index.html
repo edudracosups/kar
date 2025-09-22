@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>con mucho cariño ❤️</title>
+  <meta name="theme-color" content="#1b5e20">
+  <style>
+    :root{
+      --bg-dark: #0b2d19;
+      --bg: #0f3a22;
+      --bg-light: #134a2a;
+      --glow: #86efac;
+      --stem: #166534;
+      --leaf: #22c55e;
+      --leaf-dark:#15803d;
+      --petal: #fff59d;
+      --petal-edge:#ffeb3b;
+      --center: #fff6d6;
+      --accent: #a7f3d0;
+      --text: #eafff2;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% 10%, rgba(33, 197, 94, .12), transparent 60%),
+        radial-gradient(800px 500px at 10% 90%, rgba(134, 239, 172, .12), transparent 60%),
+        linear-gradient(135deg, var(--bg-dark), var(--bg));
+      display:grid; place-items:center;
+      overflow:hidden;
+    }
+
+    .card{
+      position:relative;
+      width:min(920px, 92vw);
+      border-radius:28px;
+      padding:28px 28px 44px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+      box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.06);
+      overflow:hidden;
+      isolation:isolate;
+    }
+
+    .glow-ring{
+      position:absolute; inset:-40%; z-index:-1;
+      background: radial-gradient(closest-side, rgba(134,239,172,.12), transparent 70%);
+      filter: blur(20px);
+    }
+
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:8px;
+    }
+
+    .title{
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: .5px;
+      line-height:1.05;
+      background: linear-gradient(90deg, #eafff2, #b7ffd8 35%, #a7f3d0 70%, #eafff2);
+      -webkit-background-clip: text; background-clip:text; color:transparent;
+      text-shadow: 0 0 12px rgba(167,243,208,.25);
+    }
+    .subtitle{opacity:.9; margin-top:6px; font-size:clamp(14px, 2.4vw, 18px)}
+
+    .badge{
+      font-size:14px; padding:8px 12px; border-radius:999px;
+      background:rgba(134,239,172,.12); border:1px solid rgba(134,239,172,.25);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+
+    .stage{
+      position:relative; height:min(58vh, 520px); min-height:420px; margin-top:10px;
+      display:grid; place-items:center; overflow:visible;
+    }
+
+    .ground{position:absolute; inset:auto -10% -30px -10%; height:180px; filter: blur(6px);
+      background: radial-gradient(60% 120px at 50% 0%, rgba(56,189,148,.25), transparent 70%),
+                  radial-gradient(40% 120px at 20% 0%, rgba(56,189,148,.18), transparent 70%),
+                  radial-gradient(40% 120px at 80% 0%, rgba(16,185,129,.18), transparent 70%);
+    }
+
+    /* ===== Flor ===== */
+    .flower{
+      position:absolute; 
+      left:50%;
+      top:50%;
+      transform: translateX(-50%) translateY(-50%) scale(.9);
+      width:260px; 
+      height:260px; 
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.35));
+      transition: transform 1.6s cubic-bezier(.22,1,.36,1);
+    }
+    
+    .core{
+      position:absolute; 
+      left:50%; 
+      top:30%; 
+      transform: translate(-50%, -30%);
+      width:82px; 
+      height:82px; 
+      border-radius:50%;
+      background: radial-gradient(circle at 35% 35%, #fffbe7, var(--center) 40%, #ffe8a3 62%, #ffd36c 70%, #f9c56a 76%, #efb75e 86%, #e8a94d 100%);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,.15), 0 0 0 6px rgba(255,255,255,.08);
+      z-index:3;
+      animation: glow 3.6s ease-in-out infinite;
+    }
+    
+    @keyframes glow {
+      0%,100%{filter: drop-shadow(0 0 0 rgba(134,239,172,.0));}
+      50%{filter: drop-shadow(0 0 18px rgba(134,239,172,.35));}
+    }
+
+    .petal{
+      position:absolute; 
+      left:50%; 
+      top:18%; 
+      width:120px; 
+      height:160px; 
+      transform-origin:50% 80%;
+      border-radius: 60% 60% 60% 60% / 70% 70% 40% 40%;
+      background: radial-gradient(120px 160px at 40% 30%, #fffde7 0 10%, var(--petal) 55%, var(--petal-edge) 85%, #fbc02d 100%);
+      box-shadow: inset 0 6px 20px rgba(255,255,255,.6), inset 0 -10px 24px rgba(0,0,0,.12);
+      opacity:0;
+      transition: all 1.2s cubic-bezier(.22,1,.36,1);
+      z-index:2;
+    }
+    
+    /* Estado inicial - pétalos cerrados y ocultos */
+    .p1{ transform: translate(-50%, -50%) rotate(0deg)   scale(0.1); }
+    .p2{ transform: translate(-50%, -50%) rotate(60deg)  scale(0.1); }
+    .p3{ transform: translate(-50%, -50%) rotate(120deg) scale(0.1); }
+    .p4{ transform: translate(-50%, -50%) rotate(180deg) scale(0.1); }
+    .p5{ transform: translate(-50%, -50%) rotate(240deg) scale(0.1); }
+    .p6{ transform: translate(-50%, -50%) rotate(300deg) scale(0.1); }
+
+    .flower:before, .flower:after{
+      content:""; position:absolute; 
+      left:50%; 
+      top:50%;
+      transform: translate(-50%, -50%);
+      width:170px; 
+      height:170px; 
+      border-radius:50%;
+      background: radial-gradient(closest-side, rgba(255,255,255,.35), rgba(255,192,203,.2) 60%, transparent 70%);
+      filter: blur(12px); 
+      z-index:1; 
+      pointer-events:none;
+      opacity:0;
+      transition: opacity 1s ease-in-out;
+    }
+    .flower:after{ filter: blur(18px); opacity:0 }
+
+    .stem{ 
+      position:absolute; 
+      left:50%; 
+      top:50%; 
+      width:14px; 
+      height:240px; 
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, var(--stem), var(--leaf-dark)); 
+      border-radius: 8px; 
+      z-index:0;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.06);
+    }
+    
+    .leaf{ 
+      position:absolute; 
+      width:140px; 
+      height:80px; 
+      background: radial-gradient(150px 100px at 20% 50%, var(--leaf) 0%, var(--leaf-dark) 70%);
+      border-radius: 0 100% 0 100%/0 100% 0 100%; 
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.25));
+    }
+    .leaf.l1{ left: calc(50% - 10px); top: 56%; transform: rotate(18deg); transform-origin: 0% 50%; }
+    .leaf.l2{ right: calc(50% - 10px); top: 66%; transform: scaleX(-1) rotate(8deg); transform-origin: 100% 50%; }
+
+    .spark{ 
+      position:absolute; 
+      width:8px; 
+      height:8px; 
+      border-radius:50%; 
+      background: radial-gradient(circle, #fff, var(--glow) 60%, transparent 70%);
+      filter: blur(.2px); 
+      opacity:.85; 
+      animation: float 6s ease-in-out infinite; 
+    }
+    .s1{ left:20%; top:22%; animation-delay:.2s }
+    .s2{ left:80%; top:28%; animation-delay:1.1s }
+    .s3{ left:12%; top:72%; animation-delay:2s }
+    .s4{ left:88%; top:68%; animation-delay:3s }
+    .s5{ left:50%; top:8%;  animation-delay:3.6s }
+    
+    @keyframes float {
+      0%,100%{ transform: translateY(0) scale(1); opacity:.85 }
+      50%{ transform: translateY(-14px) scale(1.15); opacity:1 }
+    }
+
+    /* Botón */
+    .pretty-toggle{ 
+      --r:16px; 
+      position:relative; 
+      width:58px; 
+      height:34px; 
+      border-radius:999px; 
+      cursor:pointer; 
+      display:inline-block;
+      background: rgba(167,243,208,.18); 
+      border: 1px solid rgba(167,243,208,.35);
+    }
+    .pretty-toggle .dot{ 
+      position:absolute; 
+      top:3px; 
+      left:3px; 
+      width:28px; 
+      height:28px; 
+      border-radius:50%; 
+      background:#eafff2;
+      box-shadow: 0 3px 10px rgba(0,0,0,.25); 
+      transition: transform .4s cubic-bezier(.2,.8,.2,1); 
+    }
+    #bloom:checked + .pretty-toggle .dot{ transform: translateX(24px); }
+
+    /* EFECTO AL FLORECER */
+    #bloom:checked ~ .stage .petal{
+      filter: saturate(1.3) brightness(1.3) drop-shadow(0 0 12px rgba(255,235,59,.6));
+      opacity:1;
+      animation: petalPulse 2s ease-in-out infinite;
+    }
+    
+    /* Estado florecido - pétalos abiertos */
+    #bloom:checked ~ .stage .p1{ transform: translate(-50%,-50%) rotate(-6deg)   scale(1.05) translateY(0); }
+    #bloom:checked ~ .stage .p2{ transform: translate(-50%,-50%) rotate(54deg)  scale(1.05) translateY(0); }
+    #bloom:checked ~ .stage .p3{ transform: translate(-50%,-50%) rotate(114deg) scale(1.05) translateY(0); }
+    #bloom:checked ~ .stage .p4{ transform: translate(-50%,-50%) rotate(174deg) scale(1.05) translateY(0); }
+    #bloom:checked ~ .stage .p5{ transform: translate(-50%,-50%) rotate(234deg) scale(1.05) translateY(0); }
+    #bloom:checked ~ .stage .p6{ transform: translate(-50%,-50%) rotate(294deg) scale(1.05) translateY(0); }
+    
+    #bloom:checked ~ .stage .flower{
+      transform: translateX(-50%) translateY(-50%) scale(1.12);
+      filter: drop-shadow(0 8px 20px rgba(255,235,59,.4));
+    }
+    
+    #bloom:checked ~ .stage .flower:before,
+    #bloom:checked ~ .stage .flower:after{ 
+      opacity:.7;
+    }
+    
+    #bloom:checked ~ .stage .core{
+      animation: coreGlow 2s ease-in-out infinite;
+    }
+    
+    @keyframes petalPulse {
+      0%, 100% { filter: saturate(1.3) brightness(1.3) drop-shadow(0 0 12px rgba(255,235,59,.6)); }
+      50% { filter: saturate(1.5) brightness(1.4) drop-shadow(0 0 20px rgba(255,235,59,.8)); }
+    }
+    
+    @keyframes coreGlow {
+      0%, 100% { box-shadow: inset 0 2px 8px rgba(0,0,0,.15), 0 0 0 6px rgba(255,255,255,.08), 0 0 12px rgba(255,235,59,.4); }
+      50% { box-shadow: inset 0 2px 8px rgba(0,0,0,.15), 0 0 0 6px rgba(255,255,255,.08), 0 0 20px rgba(255,235,59,.7); }
+    }
+
+    .note{ margin-top:22px; font-size:clamp(14px, 2.2vw, 17px); opacity:.95 }
+    .signature{ margin-top:6px; font-size:clamp(22px, 4vw, 28px); font-weight:700; letter-spacing:.5px }
+
+    .heart{ position:absolute; right:24px; top:24px; width:38px; height:38px; transform: rotate(-12deg); }
+    .heart:before, .heart:after{
+      content:""; position:absolute; width:20px; height:32px; background: linear-gradient(180deg, #e11d48, #fb7185);
+      border-radius:20px 20px 0 0; left:9px; top:30px; filter: drop-shadow(0 3px 6px rgba(0,0,0,.3));
+    }
+    .heart:before{ transform: rotate(-45deg); transform-origin: bottom right; }
+    .heart:after{ transform: rotate(45deg); left:auto; right:9px; transform-origin: bottom left; }
+
+    /* Responsivo */
+    @media (max-width:520px){
+      .stage{ min-height:360px; height:52vh }
+      .flower{ width:200px; height:200px; }
+      .core{ width:68px; height:68px; }
+      .petal{ width:100px; height:140px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="glow-ring"></div>
+    <span class="heart" aria-hidden="true"></span>
+    <header>
+      <div>
+        <h1 class="title">— me encnatas kar ❤️</h1>
+        <p class="subtitle">Espero que nuestro amor floresca justo como esta flor. ❤️ </p>
+      </div>
+      <span class="badge">Hecho con amor</span>
+    </header>
+
+    <input id="bloom" type="checkbox" hidden>
+    <label class="pretty-toggle" for="bloom" title="Haz clic para florecer">
+      <span class="dot"></span>
+    </label>
+
+    <div class="stage">
+      <span class="spark s1"></span>
+      <span class="spark s2"></span>
+      <span class="spark s3"></span>
+      <span class="spark s4"></span>
+      <span class="spark s5"></span>
+
+      <div class="flower" role="img" aria-label="Flor para Xime">
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+        <div class="petal p5"></div>
+        <div class="petal p6"></div>
+        <div class="core"></div>
+      </div>
+
+      <div class="stem"></div>
+      <div class="leaf l1"></div>
+      <div class="leaf l2"></div>
+      <div class="ground" aria-hidden="true"></div>
+    </div>
+
+    <p class="note"></p>
+    <div class="signature"></div>
+  </div>
+</body>
+</html>
